@@ -1,0 +1,65 @@
+version: '3.3'
+services:
+  php53_site:
+    image: orsolin/docker-php-5.3-apache
+    ports:
+      - "${SITE_HTTP}:80"
+      - "${SITE_HTTPS}:443"
+    links:
+      - php53_mysql:mysql
+    volumes:
+      - './web:/var/www/html'
+    restart: unless-stopped
+  
+  php53_mysql:
+    image: mysql:5.7
+    volumes:
+      - ./db/mysql:/var/lib/mysql
+    ports:
+      - "${DB_PORT}:3306"
+    environment:
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
+      MYSQL_PASSWORD: ${DB_PASS}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS}
+    networks:
+      - php53_network
+    restart: unless-stopped
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - '${PHPMY_PORT}:80'
+    environment:
+      PMA_HOST: php53_mysql
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASS} 
+    restart: unless-stopped
+    depends_on:
+      - php53_mysql
+    networks:
+      - php53_network
+
+  code_server:
+    image: ghcr.io/linuxserver/code-server
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Pacific
+      - PASSWORD=${CODE_PASS}
+      - SUDO_PASSWORD=${CODE_SPASS}
+    volumes:
+      - ./code_config:/config
+      - ./web:/config/workspace
+    ports:
+      - ${CODE_PORT}:8443
+    networks:
+      - php53_network
+    restart: unless-stopped
+
+networks:
+  php53_network:
+
+volumes:
+  php53_site:
+  php53_mysql:
+  code_server:

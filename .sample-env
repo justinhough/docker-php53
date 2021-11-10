@@ -1,0 +1,14 @@
+SITE_HTTP=5316
+SITE_HTTPS=5317
+
+DB_PORT=5318
+DB_USER=database-user-to-use
+DB_PASS=database-pass-to-use
+DB_ROOT_PASS=database-root-pass-to-use
+DB_NAME=database-name
+
+PHPMY_PORT=5320
+
+CODE_PORT=5319
+CODE_PASS=sample_password
+CODE_SPASS=sample_sudo_password
