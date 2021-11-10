@@ -9,9 +9,9 @@ This repository is for working with code in older PHP 5.3 environments.
 - Code Server (VS Code)
 
 ## Default Ports
-- PHP (http://localhost:5316)
-- phpMyAdmin (http://localhost:5320) => Use username and password set in `.env` for MySQL to login
-- Code Server (http://localhost:5319) => Use password set in `.env`
+- **PHP** (http://localhost:5316)
+- **phpMyAdmin** (http://localhost:5320) => Use username and password set in `.env` for MySQL to login
+- **Code Server** (http://localhost:5319) => Use password set in `.env`
 
 
 ## Installation
@@ -26,6 +26,6 @@ This repository is for working with code in older PHP 5.3 environments.
 
 
 ## Notes
-- To stop the Docker containers execute from the project root: `docker-compose stop`;
+- To stop the Docker containers execute from the project root: `docker-compose stop`
 
 
